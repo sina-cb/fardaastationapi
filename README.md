@@ -14,5 +14,8 @@ Episode information that I store locally are:
  - Timestamp for the time the episode was scraped
  - Base URI for the episode on Radio Farda's website
 
+To install requirements locally, run this command:
+ - pip install -t lib -r requirements.txt
+
 To upload to GAE run this command:
  - appcfg.py -A fardaastationapi -V beta update .
