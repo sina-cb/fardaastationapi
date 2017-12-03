@@ -1,5 +1,6 @@
 Flask
 Requests
 Schedule
-BeautifulSoup
 tinydb
+bs4
+msvcrt
