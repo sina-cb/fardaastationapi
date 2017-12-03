@@ -74,6 +74,11 @@ def get_updates_from_timestamp():
     return jsonify(result)
 
 
+@app.route('/')
+def root_folder_handler():
+    return "Hello World!"
+
+
 def read_from_file():
     with open(os.path.join(APP_STATIC, 'initial_seed.txt')) as f:
         uris = f.readlines()

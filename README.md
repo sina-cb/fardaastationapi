@@ -13,3 +13,6 @@ Episode information that I store locally are:
  - Low quality audio file download URL
  - Timestamp for the time the episode was scraped
  - Base URI for the episode on Radio Farda's website
+
+To upload to GAE run this command:
+ - appcfg.py -A fardaastationapi -V beta update .
