@@ -1,8 +1,7 @@
 Flask
 Requests
 Schedule
-flask_sqlalchemy
-pymysql
+peewee
 bs4
 oauth2client
 gunicorn

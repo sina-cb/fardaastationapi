@@ -1,7 +1,5 @@
 import logging
-import sqlalchemy
 
-import episodes
 from episodes import Episodes
 from time import time
 from logging import error as logi
@@ -22,30 +20,21 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
     if not app.testing:
         logging.basicConfig(level=logging.INFO)
 
-    # Setup the data model.
-    with app.app_context():
-        model = episodes
-        model.init_app(app)
-
     @app.route('/')
     def welcome_screen():
         episodes = {'timestamp': int(time())}
 
         logi("Trying to run")
-        try:
-            episodes = Episodes.query.all()
-        except sqlalchemy.exc.OperationalError, e:
-            logi("OperationalError: {}".format(e))
-        except KeyError, e:
-            logi("KeyError: {}".format(e))
-        except:
-            import sys
-            logi("Something unexpected happened: ")
-            logi(sys.exc_info()[0])
+        # q = Episodes.insert(timestamp = 123, title = "SINA", date = "123",
+        #                     base_uri = "www.sina.com", low_quality = "123",
+        #                     high_quality = "High", image_uri = "Image")
+        # q.execute()
+        title = ''
+        for episode in Episodes.filter(timestamp = 123):
+            title = episode.title
+        logi("HERE")
 
-        logi(episodes)
-
-        return jsonify(episodes)
+        return '<h1>Episode title: {}</h1>'.format(title)
 
     # Add an error handler. This is useful for debugging the live application,
     # however, you should disable the output of the exception for production
