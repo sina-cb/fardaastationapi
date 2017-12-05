@@ -18,4 +18,4 @@ To install requirements locally, run this command:
  - pip install -t lib -r requirements.txt
 
 To upload to GAE run this command:
- - appcfg.py -A fardaastationapi -V beta update .
+ - gcloud app deploy app.yaml --project fardastationapi

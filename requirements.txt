@@ -1,6 +1,8 @@
 Flask
 Requests
 Schedule
-tinydb
+flask_sqlalchemy
+pymysql
 bs4
-msvcrt
+oauth2client
+gunicorn
