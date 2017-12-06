@@ -4,9 +4,11 @@ import config
 from peewee import *
 
 db = None
-if (os.getenv('SERVER_SOFTWARE') and
-        os.getenv('SERVER_SOFTWARE').startswith('Google App Engine/')):
-    db = MySQLDatabase(config.CLOUDSQL_DATABASE, unix_socket='/cloudsql/{}'.format(config.CLOUDSQL_CONNECTION_NAME),
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine/'):
+    cloudsql_unix_socket = os.path.join(
+        '/cloudsql', config.CLOUDSQL_CONNECTION_NAME)
+
+    db = MySQLDatabase(config.CLOUDSQL_DATABASE, unix_socket=cloudsql_unix_socket,
                        user=config.CLOUDSQL_USER, passwd=config.CLOUDSQL_PASSWORD)
 else:
     db = MySQLDatabase(config.CLOUDSQL_DATABASE, user=config.CLOUDSQL_USER, passwd=config.CLOUDSQL_PASSWORD)

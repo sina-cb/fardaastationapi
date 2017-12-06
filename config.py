@@ -1,14 +1,11 @@
-import os
-
 SECRET_KEY = 'secret'
 
 DATA_BACKEND = 'cloudsql'
 PROJECT_ID = 'fardaastationapi'
 
-CLOUDSQL_USER = 'root'
+CLOUDSQL_USER = ''
 CLOUDSQL_PASSWORD = ''
-CLOUDSQL_DATABASE = 'test'
-# CLOUDSQL_DATABASE = 'fardaastation'
+CLOUDSQL_DATABASE = ''
 
 CLOUDSQL_CONNECTION_NAME = ''
 

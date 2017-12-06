@@ -1,28 +1,31 @@
-####### LOCAL TEST CONFIG #######
-#runtime: python27
-#threadsafe: true
+###### LOCAL TEST CONFIG #######
+runtime: python27
+threadsafe: true
+
+env_variables:
+    CLOUDSQL_CONNECTION_NAME: fardastationapi:us-east1:fardaastationapi-db
+    CLOUDSQL_USER: root
+    CLOUDSQL_PASSWORD: rootpassword
+
+libraries:
+- name: MySQLdb
+  version: "latest"
+
+handlers:
+- url: /.*
+  script: main.app
+
+
+####### PROD DEPLOY CONFIG #######
+#runtime: python
+#env: flex
 #entrypoint: gunicorn -b :$PORT main:app
 #
-#handlers:
-#- url: /.*
-#  script: main.app
+#runtime_config:
+#  python_version: 3
 #
 #env_variables:
 #    owner_name: "SINA SOLAIMANPOUR"
 #
 #beta_settings:
 #    cloud_sql_instances: "fardastationapi:us-east1:fardaastationapi-db"
-
-####### PROD DEPLOY CONFIG #######
-runtime: python
-env: flex
-entrypoint: gunicorn -b :$PORT main:app
-
-runtime_config:
-  python_version: 3
-
-env_variables:
-    owner_name: "SINA SOLAIMANPOUR"
-
-beta_settings:
-    cloud_sql_instances: "fardastationapi:us-east1:fardaastationapi-db"
