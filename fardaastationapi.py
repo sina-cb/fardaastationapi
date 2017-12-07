@@ -39,7 +39,7 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
         else:
             return '<h1>This is a crobjob and all the requests should come from appengine.</h1>'
 
-    @app.route('/')
+    @app.route('/get_updates')
     def get_update():
         timestamp = request.args.get('timestamp', '')
 
@@ -52,6 +52,16 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
         result = find_updates(timestamp)
 
         return jsonify(result)
+
+    @app.route('/')
+    def welcome():
+        message = '{}{}{}'.format('<h1>Welcome to FardaStationAPI WebService</h1>',
+                                  '<p>To get information about the latest episodes of Fardaa Station (by '
+                                  'RadioFarda.com) please send a GET request to '
+                                  'http://fardastationapi.appspot.com/get_updates URL.</p>',
+                                  '<p>A UNIX epoch timestamp can also be passed in as an argument to filter out the '
+                                  'episodes before that timestamp.</p>')
+        return message
 
     # Add an error handler. This is useful for debugging the live application,
     # however, you should disable the output of the exception for production
