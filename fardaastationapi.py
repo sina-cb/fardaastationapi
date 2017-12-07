@@ -60,7 +60,8 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
                                   'RadioFarda.com) please send a GET request to '
                                   'http://fardastationapi.appspot.com/get_updates URL.</p>',
                                   '<p>A UNIX epoch timestamp can also be passed in as an argument to filter out the '
-                                  'episodes before that timestamp.</p>')
+                                  'episodes before that timestamp. Example: '
+                                  'https://fardastationapi.appspot.com/get_updates?timestamp=1512629949</p>')
         return message
 
     # Add an error handler. This is useful for debugging the live application,
