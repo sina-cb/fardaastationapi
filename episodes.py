@@ -31,7 +31,6 @@ class Episodes(peewee.Model):
 def find_updates(timestamp):
     results = []
     for episode in Episodes.select().where(Episodes.timestamp > timestamp):
-        logi(episode.timestamp)
         episode_map = {'timestamp': episode.timestamp,
                        'title': episode.title,
                        'date': episode.date,
