@@ -1,10 +1,10 @@
-SECRET_KEY = 'secret'
+SECRET_KEY = ''
 
-DATA_BACKEND = 'cloudsql'
-PROJECT_ID = 'fardaastationapi'
+DATA_BACKEND = ''
+PROJECT_ID = ''
 
-CLOUDSQL_USER = 'root'
-CLOUDSQL_PASSWORD = 'rootpassword'
-CLOUDSQL_DATABASE = 'fardaastation'
+CLOUDSQL_USER = ''
+CLOUDSQL_PASSWORD = ''
+CLOUDSQL_DATABASE = ''
 
-CLOUDSQL_CONNECTION_NAME = 'fardastationapi:us-east1:fardaastationapi-db'
+CLOUDSQL_CONNECTION_NAME = ''
