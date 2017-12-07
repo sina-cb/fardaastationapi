@@ -1,6 +1,6 @@
 import logging
 
-from episodes import find_updates, db
+from episodes import find_updates, db, count_all
 from logging import error as logi
 from flask import Flask, jsonify, request
 
@@ -55,13 +55,14 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
 
     @app.route('/')
     def welcome():
-        message = '{}{}{}'.format('<h1>Welcome to FardaStationAPI WebService</h1>',
-                                  '<p>To get information about the latest episodes of Fardaa Station (by '
-                                  'RadioFarda.com) please send a GET request to '
-                                  'http://fardastationapi.appspot.com/get_updates URL.</p>',
-                                  '<p>A UNIX epoch timestamp can also be passed in as an argument to filter out the '
-                                  'episodes before that timestamp. Example: '
-                                  'https://fardastationapi.appspot.com/get_updates?timestamp=1512629949</p>')
+        message = '{}{}{}{}'.format('<h1>Welcome to FardaStationAPI WebService</h1>',
+                                    '<p>To get information about the latest episodes of Fardaa Station (by '
+                                    'RadioFarda.com) please send a GET request to '
+                                    'http://fardastationapi.appspot.com/get_updates URL.</p>',
+                                    '<p>A UNIX epoch timestamp can also be passed in as an argument to filter out the '
+                                    'episodes before that timestamp. Example: '
+                                    'https://fardastationapi.appspot.com/get_updates?timestamp=1512629949</p>',
+                                    '<h1>Current number of episodes: {}</h1>'.format(count_all()))
         return message
 
     # Add an error handler. This is useful for debugging the live application,

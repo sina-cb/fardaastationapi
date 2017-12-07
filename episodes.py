@@ -43,6 +43,10 @@ def find_updates(timestamp):
     return results
 
 
+def count_all():
+    return Episodes.select().count()
+
+
 def _create_database():
     """
     If this script is run directly, create all the tables necessary to run the

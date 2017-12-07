@@ -10,6 +10,7 @@
       <w>fardastationapi</w>
       <w>gcloud</w>
       <w>gunicorn</w>
+      <w>logi</w>
       <w>subitem</w>
       <w>subitems</w>
       <w>yaml</w>
