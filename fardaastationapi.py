@@ -1,9 +1,8 @@
 import logging
 
-from episodes import Episodes
-from time import time
+from episodes import find_updates, db
 from logging import error as logi
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 
 def create_app(config, debug=False, testing=False, config_overrides=None):
@@ -20,21 +19,38 @@ def create_app(config, debug=False, testing=False, config_overrides=None):
     if not app.testing:
         logging.basicConfig(level=logging.INFO)
 
+    @app.before_request
+    def before_request():
+        db.connect()
+
+    @app.after_request
+    def after_request(response):
+        db.close()
+        return response
+
+    @app.route('/get_new_episodes')
+    def get_new_episodes():
+        appengine_request = request.headers.get('X-Appengine-Cron')
+        if appengine_request == 'true':
+            from scraper import update_episodes
+            update_episodes()
+            return '<h1>Success</h1>'
+        else:
+            return '<h1>This is a crobjob and all the requests should come from appengine.</h1>'
+
     @app.route('/')
-    def welcome_screen():
-        episodes = {'timestamp': int(time())}
+    def get_update():
+        timestamp = request.args.get('timestamp', '')
 
-        logi("Trying to run")
-        # q = Episodes.insert(timestamp = 123, title = "SINA", date = "123",
-        #                     base_uri = "www.sina.com", low_quality = "123",
-        #                     high_quality = "High", image_uri = "Image")
-        # q.execute()
-        title = ''
-        for episode in Episodes.filter(timestamp = 123):
-            title = episode.title
-        logi("HERE")
+        if timestamp == '':
+            logi('Default timestamp')
+            timestamp = 0
+        else:
+            timestamp = long(timestamp)
 
-        return '<h1>Episode title: {}</h1>'.format(title)
+        result = find_updates(timestamp)
+
+        return jsonify(result)
 
     # Add an error handler. This is useful for debugging the live application,
     # however, you should disable the output of the exception for production

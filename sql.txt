@@ -1,7 +1,0 @@
-CREATE TABLE episodes (timestamp Long, title VARCHAR(255), date VARCHAR(255),
-                       base_uri VARCHAR(255), low_quality VARCHAR(255),
-                       high_quality VARCHAR(255), image_uri VARCHAR(255),
-                       PRIMARY KEY(base_uri))
-
-gcloud auth application-default login
-./cloud_sql_proxy -instances=fardastationapi:us-east1:fardaastationapi-db=tcp:3306

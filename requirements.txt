@@ -3,5 +3,5 @@ Requests
 Schedule
 peewee
 bs4
-oauth2client
 gunicorn
+pytz

@@ -14,8 +14,16 @@ Episode information that I store locally are:
  - Timestamp for the time the episode was scraped
  - Base URI for the episode on Radio Farda's website
 
-To install requirements locally, run this command:
+To install requirements locally, run these commands in the root directory of the project:
+ - virtualenv env
+ - source env/bin/activate
  - pip install -t lib -r requirements.txt
 
-To upload to GAE run this command:
- - gcloud app deploy app.yaml --project fardastationapi
+To test the app locally, run this command in the root directory of the project:
+ - dev_appserver.py .
+
+To deploy to GAE run this command:
+ - gcloud app deploy
+ 
+To deploy the crop job to GAE run this command:
+ - gcloud app deploy cron.yaml

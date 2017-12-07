@@ -1,8 +1,16 @@
 <component name="ProjectDictionaryState">
   <dictionary name="sina">
     <words>
+      <w>appengine</w>
+      <w>appserver</w>
       <w>cloudsql</w>
+      <w>crob</w>
+      <w>crobjob</w>
+      <w>gcloud</w>
       <w>gunicorn</w>
+      <w>subitem</w>
+      <w>subitems</w>
+      <w>yaml</w>
     </words>
   </dictionary>
 </component>

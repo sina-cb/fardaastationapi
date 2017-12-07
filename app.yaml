@@ -2,19 +2,17 @@
 runtime: python27
 threadsafe: true
 
-env_variables:
-    CLOUDSQL_CONNECTION_NAME: fardastationapi:us-east1:fardaastationapi-db
-    CLOUDSQL_USER: root
-    CLOUDSQL_PASSWORD: rootpassword
-
 libraries:
 - name: MySQLdb
+  version: "latest"
+- name: ssl
+  version: "latest"
+- name: pytz
   version: "latest"
 
 handlers:
 - url: /.*
   script: main.app
-
 
 ####### PROD DEPLOY CONFIG #######
 #runtime: python

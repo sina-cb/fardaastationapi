@@ -1,0 +1,9 @@
+cron:
+- description: Update the episodes list
+  url: /get_new_episodes
+  target: beta
+  schedule: every 30 minutes from 19:00 to 00:00
+#  schedule: every 1 minutes # TEST
+  retry_parameters:
+    min_backoff_seconds: 100
+  timezone: Iran

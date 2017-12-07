@@ -1,8 +1,6 @@
 import config
 import fardaastationapi
 
-from threading import Thread
-
 app = fardaastationapi.create_app(config)
 
 # This is only used when running locally. When running live, gunicorn runs
