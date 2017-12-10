@@ -6,9 +6,10 @@ import requests
 import time
 import os
 
-from logging import info as logi
+from datetime import datetime
+from logging import error as logi
 
-from episodes import Episodes, _create_database
+from episodes import Episodes, create_database
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 APP_STATIC = os.path.join(APP_ROOT, 'static')
@@ -22,6 +23,7 @@ def read_from_file():
 
 
 def update_episodes(create_db=False):
+    logi("HIII")
     # Get the last episodes posted in the webpage.
     radio_farda_base_url = "https://www.radiofarda.com/"
     fardaa_station_base_url = urljoin(radio_farda_base_url, "z/20317")
@@ -66,6 +68,12 @@ def update_episodes(create_db=False):
             publish_date = episode_page.find_all('div', 'published')[
                 0].find('time').text
 
+            timestamp_aired = episode_page.find_all('div', 'published')[
+                0].find('time')['datetime']
+            k = timestamp_aired.rfind('+')
+            timestamp_aired = timestamp_aired[:k]
+            timestamp_aired = long(datetime.strptime(timestamp_aired, '%Y-%m-%dT%H:%M:%S').strftime('%s'))
+
             title = episode_page.find_all('div', 'hdr-container')[
                 0].find('h1').text
 
@@ -73,7 +81,8 @@ def update_episodes(create_db=False):
             try:
                 query = Episodes.insert(timestamp=timestamp, title=title.strip(), date=publish_date.strip(),
                                         base_uri=base_uri.strip(), low_quality=low_quality.strip(),
-                                        high_quality=high_quality.strip(), image_uri=image_uri.strip())
+                                        high_quality=high_quality.strip(), image_uri=image_uri.strip(),
+                                        timestamp_aired=timestamp_aired)
                 query.execute()
             except peewee.IntegrityError:
                 logi('Repeated episode.')
@@ -84,5 +93,5 @@ def update_episodes(create_db=False):
 
 
 if __name__ == '__main__':
-    _create_database()
+    create_database()
     update_episodes(create_db=True)

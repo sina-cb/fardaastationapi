@@ -17,6 +17,7 @@ else:
 
 class Episodes(peewee.Model):
     timestamp = peewee.BigIntegerField()
+    timestamp_aired = peewee.BigIntegerField()
     title = peewee.CharField()
     date = peewee.CharField()
     base_uri = peewee.CharField(primary_key=True)
@@ -30,8 +31,9 @@ class Episodes(peewee.Model):
 
 def find_updates(timestamp):
     results = []
-    for episode in Episodes.select().where(Episodes.timestamp > timestamp):
+    for episode in Episodes.select().where(Episodes.timestamp > timestamp).order_by(Episodes.timestamp_aired.desc()):
         episode_map = {'timestamp': episode.timestamp,
+                       'timestamp_aired': episode.timestamp_aired,
                        'title': episode.title,
                        'date': episode.date,
                        'base_uri': episode.base_uri,
@@ -47,7 +49,7 @@ def count_all():
     return Episodes.select().count()
 
 
-def _create_database():
+def create_database():
     """
     If this script is run directly, create all the tables necessary to run the
     application.
@@ -58,3 +60,7 @@ def _create_database():
         logi("Error happened.")
 
     print("All tables created")
+
+
+if __name__ == '__main__':
+    create_database()
