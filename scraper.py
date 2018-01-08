@@ -23,7 +23,6 @@ def read_from_file():
 
 
 def update_episodes(create_db=False):
-    logi("HIII")
     # Get the last episodes posted in the webpage.
     radio_farda_base_url = "https://www.radiofarda.com/"
     fardaa_station_base_url = urljoin(radio_farda_base_url, "z/20317")
@@ -79,13 +78,19 @@ def update_episodes(create_db=False):
 
             import peewee
             try:
-                query = Episodes.insert(timestamp=timestamp, title=title.strip(), date=publish_date.strip(),
-                                        base_uri=base_uri.strip(), low_quality=low_quality.strip(),
-                                        high_quality=high_quality.strip(), image_uri=image_uri.strip(),
-                                        timestamp_aired=timestamp_aired)
-                query.execute()
-            except peewee.IntegrityError:
-                logi('Repeated episode.')
+                episode = Episodes.insert(timestamp=timestamp, title=title.strip(), date=publish_date.strip(),
+                                          low_quality=low_quality.strip(),
+                                          high_quality=high_quality.strip(), image_uri=image_uri.strip(),
+                                          timestamp_aired=timestamp_aired, base_uri=base_uri.strip())
+                episode.execute()
+            except peewee.IntegrityError as e:
+                logi(e)
+                logi('Duplicate entry found, updating the entry.')
+                episode = Episodes.update(timestamp=timestamp, title=title.strip(), date=publish_date.strip(),
+                                          low_quality=low_quality.strip(),
+                                          high_quality=high_quality.strip(), image_uri=image_uri.strip(),
+                                          timestamp_aired=timestamp_aired).where(Episodes.base_uri == base_uri.strip())
+                episode.execute()
         except IndexError:
             logi("Index Error at: " + base_uri)
         finally:
